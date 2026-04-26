@@ -1,0 +1,91 @@
+---
+import Layout from '@/components/layout/Layout.astro';
+import { getTranslations, type Language } from '@/lib/translations';
+import { EXHIBITIONS } from '@/data/site';
+import Button from '@/components/ui/Button.astro';
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const t = getTranslations(language);
+
+// Filter current exhibitions (for demo, show all)
+const currentExhibitions = EXHIBITIONS.slice(0, 2);
+---
+
+<Layout title="Art Gate Gallery" description={t.hero.subtitle} language={language}>
+  <!-- Hero Section -->
+  <section class="relative py-32 lg:py-40 overflow-hidden">
+    <div class="container mx-auto px-4">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
+          {t.hero.tagline}
+        </p>
+        <h1 class="mb-6 font-display text-5xl font-bold tracking-tight text-foreground md:text-7xl">
+          Art Gate Gallery
+        </h1>
+        <p class="mb-8 text-lg text-muted-foreground md:text-xl">
+          {t.hero.subtitle}
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <Button variant="cta" size="lg" href="/exhibitions">
+            {t.hero.cta}
+          </Button>
+          <Button variant="outline" size="lg" href="/visit">
+            {t.hero.ctaSecondary}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Exhibitions -->
+  <section class="bg-muted/20 py-20">
+    <div class="container mx-auto px-4">
+      <div class="mb-12 flex items-end justify-between">
+        <div>
+          <h2 class="text-3xl font-display font-bold">{t.exhibitions.current}</h2>
+          <p class="mt-2 text-muted-foreground">On view now</p>
+        </div>
+        <a href="/exhibitions" class="text-sm font-medium text-accent hover:underline">
+          {t.common.viewAll} &rarr;
+        </a>
+      </div>
+
+      <div class="gallery-grid">
+        {currentExhibitions.map((exhibition) => (
+          <article class="rounded-2xl border border-border bg-card overflow-hidden shadow-sm transition-shadow hover:shadow-lg">
+            <div class="aspect-[4/3] bg-gradient-to-br from-stone-200 to-stone-300"></div>
+            <div class="p-6">
+              <h3 class="mb-2 font-display text-xl font-semibold">{exhibition.title}</h3>
+              <p class="mb-3 text-sm text-muted-foreground">{exhibition.artist}</p>
+              <p class="text-sm text-foreground/80">{exhibition.description}</p>
+              <div class="mt-4 flex items-center justify-between text-xs text-muted-foreground">
+                <span>
+                  {new Date(exhibition.startDate).toLocaleDateString()} – {new Date(exhibition.endDate).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit CTA -->
+  <section class="py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="mb-4 text-3xl font-display font-bold">{t.visit.title}</h2>
+      <p class="mx-auto mb-8 max-w-2xl text-muted-foreground">
+        {language === 'sk'
+          ? 'Navštívte nás vcentre Martina. Otevíname každý deň okrem nedele.'
+          : 'Visit us in the heart of Martin. Open daily except Sunday.'}
+      </p>
+      <Button variant="cta" size="lg" href="/visit">
+        {t.visit.getDirections}
+      </Button>
+    </div>
+  </section>
+</Layout>

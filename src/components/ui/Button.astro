@@ -1,0 +1,38 @@
+---
+import { twMerge } from 'tailwind-merge';
+import { buttonVariants, type ButtonProps } from '@/lib/button';
+
+interface Props extends ButtonProps {
+  href?: string;
+}
+
+const {
+  variant = 'default',
+  size = 'default',
+  href,
+  class: className = '',
+  disabled,
+  ...rest
+} = Astro.props;
+
+const classes = twMerge(buttonVariants({ variant, size }), className);
+---
+{href ? (
+  <a
+    href={disabled ? undefined : href}
+    class={classes}
+    aria-disabled={disabled}
+    {...rest}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    type="button"
+    disabled={disabled}
+    class={classes}
+    {...rest}
+  >
+    <slot />
+  </button>
+)

@@ -1,0 +1,60 @@
+---
+import Layout from '@/components/layout/Layout.astro';
+import { getTranslations, type Language } from '@/lib/translations';
+import { EXHIBITIONS } from '@/data/site';
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const t = getTranslations(language);
+---
+
+<Layout title="Exhibitions" description="Current and upcoming exhibitions at Art Gate Gallery, Martin Slovakia" language={language}>
+  <div class="container mx-auto px-4 py-16">
+    <div class="mb-12">
+      <h1 class="text-4xl font-display font-bold tracking-tight md:text-5xl">
+        {t.exhibitions.current}
+      </h1>
+      <p class="mt-4 text-lg text-muted-foreground">
+        {language === 'sk'
+          ? 'Objavte súčasné a nadchádzajúce výstavy v našej galérii'
+          : 'Discover current and upcoming exhibitions at our gallery'}
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      {EXHIBITIONS.map((exhibition) => (
+        <article class="grid gap-6 rounded-2xl border border-border bg-card p-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="aspect-[4/3] bg-gradient-to-br from-stone-200 to-stone-300 rounded-xl overflow-hidden"></div>
+          <div class="flex flex-col justify-center">
+            <div class="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
+              {exhibition.startDate && new Date(exhibition.startDate) <= new Date()
+                ? t.exhibitions.current
+                : t.exhibitions.upcoming}
+            </div>
+            <h2 class="mb-2 font-display text-2xl font-bold md:text-3xl">
+              {exhibition.title}
+            </h2>
+            <p class="mb-3 text-accent font-medium">
+              {exhibition.artist}
+            </p>
+            <p class="mb-4 text-muted-foreground">
+              {exhibition.description}
+            </p>
+            <div class="text-sm text-muted-foreground">
+              <span class="font-medium">
+                {new Date(exhibition.startDate).toLocaleDateString(language === 'sk' ? 'sk-SK' : 'en-US')}
+              </span>
+              {' — '}
+              <span class="font-medium">
+                {new Date(exhibition.endDate).toLocaleDateString(language === 'sk' ? 'sk-SK' : 'en-US')}
+              </span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>

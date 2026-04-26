@@ -1,0 +1,107 @@
+---
+import { GALLERY_INFO } from '@/data/site';
+import type { Language } from '@/lib/translations';
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const t = language === 'sk' ? {
+  contact: 'Kontakt',
+  visitUs: 'Navštívte nás',
+  hours: 'Otváracie hodiny',
+  callUs: 'Zavolajte nám',
+  emailUs: 'Email',
+  rights: 'Všetky práva vyhradené.',
+} : {
+  contact: 'Contact',
+  visitUs: 'Visit Us',
+  hours: 'Opening Hours',
+  callUs: 'Call Us',
+  emailUs: 'Email',
+  rights: 'All rights reserved.',
+};
+---
+
+<footer class="border-t border-muted/40 bg-primary-900 py-12 text-white">
+  <div class="container mx-auto px-4">
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <h3 class="mb-4 font-display text-2xl">
+          <span class="text-accent">Art</span>Gate Gallery
+        </h3>
+        <p class="mb-4 max-w-xs text-white/70">
+          {GALLERY_INFO.description}
+        </p>
+        <div class="flex gap-3">
+          <Button variant="secondary" size="sm" href="/contact">
+            {t.contact}
+          </Button>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="mb-4 font-semibold">{t.contact}</h4>
+        <address class="flex flex-col gap-3 text-white/80 not-italic">
+          <div>
+            <div class="text-sm font-medium text-white">{GALLERY_INFO.address.street}</div>
+            <div class="text-sm">{GALLERY_INFO.address.city}, {GALLERY_INFO.address.zip}</div>
+            <div class="text-sm">{GALLERY_INFO.address.country}</div>
+          </div>
+          <a
+            href={`mailto:${GALLERY_INFO.contact.email}`}
+            class="transition-colors hover:text-accent"
+          >
+            {GALLERY_INFO.contact.email}
+          </a>
+          <a
+            href={`tel:${GALLERY_INFO.contact.phone}`}
+            class="transition-colors hover:text-accent"
+          >
+            {GALLERY_INFO.contact.phone}
+          </a>
+        </address>
+      </div>
+
+      <div>
+        <h4 class="mb-4 font-semibold">{t.visitUs}</h4>
+        <div class="flex flex-col gap-2 text-sm text-white/80">
+          <div>{t.hours}:</div>
+          <div>Mon–Fri: 10:00–18:00</div>
+          <div>Sat: 10:00–16:00</div>
+          <div>Sun: Closed</div>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="mb-4 font-semibold">{language === 'sk' ? ' sledujte nás' : ' Follow Us'}</h4>
+        <p class="mb-4 text-sm text-white/70">
+          {language === 'sk' ? 'Sledujte nás na sociálnych sieťach' : 'Follow us on social media'}
+        </p>
+        <div class="flex gap-2">
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            Instagram
+          </a>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 border-t border-accent/10 pt-6 text-center text-sm text-white/60">
+      &copy; {new Date().getFullYear()} Art Gate Gallery. {t.rights}
+    </div>
+  </div>
+</footer>

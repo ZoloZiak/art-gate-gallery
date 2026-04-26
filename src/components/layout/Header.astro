@@ -1,0 +1,44 @@
+---
+import { GALLERY_INFO } from '@/data/site';
+import Button from '@/components/ui/Button.astro';
+import type { Language } from '@/lib/translations';
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+
+const navLinks = [
+  { label: language === 'sk' ? 'Domov' : 'Home', href: '/' },
+  { label: language === 'sk' ? 'Výstavy' : 'Exhibitions', href: '/exhibitions' },
+  { label: language === 'sk' ? 'Umelci' : 'Artists', href: '/artists' },
+  { label: language === 'sk' ? 'Navštívte nás' : 'Visit', href: '/visit' },
+  { label: language === 'sk' ? 'Kontakt' : 'Contact', href: '/contact' },
+];
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-muted/40 bg-background/80 backdrop-blur-md">
+  <div class="container mx-auto flex h-16 items-center justify-between px-4">
+    <a href="/" class="flex items-center gap-2 font-display text-xl font-semibold tracking-tight text-foreground">
+      <span class="text-accent">Art</span>Gate
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <Button variant="secondary" size="sm" href="/contact">
+        {language === 'sk' ? 'Kontakt' : 'Contact'}
+      </Button>
+    </div>
+  </div>
+</header>
