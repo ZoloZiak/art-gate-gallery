@@ -10,7 +10,24 @@ interface Props {
 const { lang, rest = [] } = Astro.params;
 const t = getTranslations(lang);
 
-// Route maps per language
+// Generate all static paths for both languages at build time
+export async function getStaticPaths() {
+  const skRoutes = ['', 'o-nas', 'vystavy', 'navstevujeme', 'kontakt'];
+  const enRoutes = ['', 'about', 'exhibitions', 'visit', 'contact'];
+
+  const paths = [
+    ...skRoutes.map((path) => ({
+      params: { lang: 'sk', rest: path ? [path] : [] },
+    })),
+    ...enRoutes.map((path) => ({
+      params: { lang: 'en', rest: path ? [path] : [] },
+    })),
+  ];
+
+  return paths;
+}
+
+// Route maps per language (used after path generation)
 const skRoutes: Record<string, any> = {
   '': { component: import('../index.astro'), title: 'Art Gate Gallery' },
   'o-nas': { component: import('../about.astro'), title: t.about.title },
