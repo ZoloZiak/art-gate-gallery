@@ -1,6 +1,7 @@
 ---
 import { GALLERY_INFO } from '@/data/site';
 import type { Language } from '@/lib/translations';
+import Button from '@/components/ui/Button.astro';
 
 interface Props {
   language: Language;
@@ -22,6 +23,9 @@ const t = language === 'sk' ? {
   emailUs: 'Email',
   rights: 'All rights reserved.',
 };
+
+const COPYRIGHT_YEAR = new Date().getFullYear();
+const bookingHref = language === 'sk' ? '/kontakt' : '/en/contact';
 ---
 
 <footer class="border-t border-muted/40 bg-primary-900 py-12 text-white">
