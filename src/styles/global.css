@@ -1,56 +1,60 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* MagicRoom Design Tokens - tailored for Art Gate Gallery */
-@theme {
-  /* Typography */
-  --font-display: "Satoshi", system-ui, sans-serif;
-  --font-sans: "DM Sans", system-ui, sans-serif;
-
-  /* Colors - gallery/art theme */
-  --color-background: #FAFAF9;
-  --color-foreground: #1C1917;
-  --color-card: #FFFFFF;
-  --color-card-foreground: #1C1917;
-  --color-primary: #78716C;      /* stone-500 - neutral */
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #F5F5F4;   /* stone-100 */
-  --color-secondary-foreground: #1C1917;
-  --color-muted: #E7E5E4;       /* stone-200 */
-  --color-muted-foreground: #57534E;
-  --color-accent: #B45309;      /* amber-700 - warm contrast */
-  --color-accent-foreground: #FFFBEB;
-  --color-destructive: #DC2626;
-  --color-destructive-foreground: #FFFFFF;
-  --color-border: #D6D3D1;
-  --color-input: #D6D3D1;
-  --color-ring: #78716C;
-
-  /* Custom Gallery Colors */
-  --color-cta: #B45309;
-  --color-cta-hover: #92400E;
-  --color-success: #059669;
-  --color-surface: #F5F5F4;
-
-  /* Dark variant for footers/hero */
-  --color-primary-900: #44403C; /* stone-700 */
-  --color-primary-950: #292524; /* stone-800 */
-
-  /* Shadows — warm neutral tones */
-  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.08);
-  --shadow-medium: 0 24px 80px rgba(0, 0, 0, 0.10);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.12);
-
-  /* Radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-}
-
+/* Custom Design Tokens - Art Gate Gallery */
 @layer base {
-  * { @apply border-border; }
-  html { @apply bg-background; scroll-behavior: smooth; }
+  :root {
+    --font-display: "Satoshi", system-ui, sans-serif;
+    --font-sans: "DM Sans", system-ui, sans-serif;
+
+    /* Colors */
+    --color-background: #FAFAF9;
+    --color-foreground: #1C1917;
+    --color-card: #FFFFFF;
+    --color-card-foreground: #1C1917;
+    --color-primary: #78716C;
+    --color-primary-foreground: #FFFFFF;
+    --color-secondary: #F5F5F4;
+    --color-secondary-foreground: #1C1917;
+    --color-muted: #E7E5E4;
+    --color-muted-foreground: #57534E;
+    --color-accent: #B45309;
+    --color-accent-foreground: #FFFBEB;
+    --color-destructive: #DC2626;
+    --color-destructive-foreground: #FFFFFF;
+    --color-border: #D6D3D1;
+    --color-input: #D6D3D1;
+    --color-ring: #78716C;
+
+    --color-cta: #B45309;
+    --color-cta-hover: #92400E;
+    --color-success: #059669;
+    --color-surface: #F5F5F4;
+
+    --color-primary-900: #44403C;
+    --color-primary-950: #292524;
+
+    --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 24px 80px rgba(0, 0, 0, 0.10);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.12);
+
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background;
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     background-image:
@@ -66,4 +70,27 @@
     gap: 1.5rem;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
+}
+
+/* Section kicker — small uppercase label */
+.section-kicker {
+  @apply text-[11px] uppercase tracking-[0.28em] text-primary/70;
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Smooth scroll offset */
+html {
+  scroll-padding-top: 5.5rem;
 }

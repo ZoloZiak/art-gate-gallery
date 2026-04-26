@@ -2,7 +2,9 @@
   "name": "art-gate-gallery",
   "type": "module",
   "version": "0.0.1",
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -27,14 +29,16 @@
     "photoswipe": "^5.4.4",
     "resend": "^6.10.0",
     "tailwind-merge": "^3.5.0",
-    "tailwindcss": "^4.2.2",
     "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@types/uuid": "^10.0.0",
     "@vitest/coverage-v8": "^4.1.2",
+    "autoprefixer": "^10.5.0",
     "playwright": "^1.59.1",
+    "postcss": "^8.5.12",
+    "tailwindcss": "^3.4.19",
     "vitest": "^4.1.2",
     "wait-on": "^9.0.5"
   }
