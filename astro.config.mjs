@@ -12,6 +12,7 @@ export default defineConfig({
   adapter: vercel({
     edgeMiddleware: false,
   }),
+  integrations: [],
   vite: {
     plugins: [tailwind()],
     resolve: {
