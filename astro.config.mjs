@@ -10,5 +10,10 @@ export default defineConfig({
   }),
   vite: {
     plugins: [tailwind()],
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
   },
 });
