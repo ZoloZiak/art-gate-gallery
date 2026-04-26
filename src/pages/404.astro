@@ -3,10 +3,10 @@ import Layout from '@/components/layout/Layout.astro';
 import { getTranslations, type Language } from '@/lib/translations';
 
 interface Props {
-  language: Language;
+  language?: Language;
 }
 
-const { language } = Astro.props;
+const { language = 'sk' } = Astro.props;
 const t = getTranslations(language);
 ---
 

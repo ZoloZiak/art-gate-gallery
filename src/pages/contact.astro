@@ -7,10 +7,10 @@ import { contactFormSchema, type ContactFormData } from '@/lib/schemas';
 import { GALLERY_INFO } from '@/data/site';
 
 interface Props {
-  language: Language;
+  language?: Language;
 }
 
-const { language } = Astro.props;
+const { language = 'sk' } = Astro.props;
 const t = getTranslations(language);
 
 // Handle form submission on server (Astro actions) or client

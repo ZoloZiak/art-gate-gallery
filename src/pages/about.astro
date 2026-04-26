@@ -4,10 +4,10 @@ import { getTranslations, type Language } from '@/lib/translations';
 import { GALLERY_INFO } from '@/data/site';
 
 interface Props {
-  language: Language;
+  language?: Language;
 }
 
-const { language } = Astro.props;
+const { language = 'sk' } = Astro.props;
 const t = getTranslations(language);
 ---
 
