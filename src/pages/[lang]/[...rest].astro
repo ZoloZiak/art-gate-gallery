@@ -10,33 +10,29 @@ interface Props {
 const { lang, rest = [] } = Astro.params;
 const t = getTranslations(lang);
 
-// Simple routing based on rest path
+// Route to appropriate page based on path (simplified)
 const path = rest.join('/');
 
-// Route to appropriate page based on path (simplified)
+// Map of URL paths to page components (relative to current folder's parent)
 const routes: Record<string, any> = {
   '': {
-    component: import('./index.astro'),
+    component: import('../index.astro'),
     title: 'Art Gate Gallery',
   },
   'o-nas': {
-    component: import('./about.astro'),
+    component: import('../about.astro'),
     title: t.about.title,
   },
   'vystavy': {
-    component: import('./exhibitions.astro'),
+    component: import('../exhibitions.astro'),
     title: t.exhibitions.current,
   },
-  'umelec': {
-    component: import('./artist.astro'),
-    title: t.artists.title,
-  },
   'navstevujeme': {
-    component: import('./visit.astro'),
+    component: import('../visit.astro'),
     title: t.visit.title,
   },
   'kontakt': {
-    component: import('./contact.astro'),
+    component: import('../contact.astro'),
     title: t.contact.title,
   },
 };
