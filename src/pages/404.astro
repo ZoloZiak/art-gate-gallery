@@ -1,0 +1,26 @@
+---
+import Layout from '@/components/layout/Layout.astro';
+import { getTranslations, type Language } from '@/lib/translations';
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+const t = getTranslations(language);
+---
+
+<Layout title="Page Not Found" description="The page you're looking for doesn't exist." language={language}>
+  <div class="container mx-auto px-4 py-32 text-center">
+    <h1 class="text-9xl font-display font-bold text-muted-foreground/30 mb-8">404</h1>
+    <h2 class="text-3xl font-display font-bold mb-4">Page Not Found</h2>
+    <p class="text-lg text-muted-foreground mb-8">
+      {language === 'sk' 
+        ? 'Stránka, ktorú hľadáte, neexistuje alebo bola presunutá.'
+        : 'The page you are looking for does not exist or has been moved.'}
+    </p>
+    <a href={`/${language === 'sk' ? '' : 'en/'}`} class="text-accent font-medium hover:underline">
+      {language === 'sk' ? 'Späť na domovskú stránku' : 'Back to home'} &rarr;
+    </a>
+  </div>
+</Layout>

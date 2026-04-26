@@ -1,0 +1,60 @@
+---
+interface Props {
+  type?: 'text' | 'email' | 'tel' | 'textarea';
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  name: string;
+  id?: string;
+  required?: boolean;
+  error?: string;
+  class?: string;
+}
+
+const {
+  type = 'text',
+  label,
+  placeholder = '',
+  value = '',
+  name,
+  id,
+  required = false,
+  error,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const inputId = id || name;
+const isTextarea = type === 'textarea';
+---
+
+<div class="space-y-2">
+  {label && (
+    <label for={inputId} class="block text-sm font-medium text-foreground">
+      {label} {required && <span class="text-destructive">*</span>}
+    </label>
+  )}
+  {isTextarea ? (
+    <textarea
+      name={name}
+      id={inputId}
+      placeholder={placeholder}
+      required={required}
+      class={`w-full rounded-lg border border-input bg-background px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow resize-none ${className}`}
+      rows={4}
+      {...rest}
+    >{value}</textarea>
+  ) : (
+    <input
+      type={type}
+      name={name}
+      id={inputId}
+      placeholder={placeholder}
+      value={value}
+      required={required}
+      class={`w-full rounded-lg border border-input bg-background px-4 py-3 focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow ${className}`}
+      {...rest}
+    />
+  )}
+  {error && <p class="text-sm text-destructive">{error}</p>}
+</div>

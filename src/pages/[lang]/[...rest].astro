@@ -1,0 +1,52 @@
+---
+import { getTranslations, type Language } from '@/lib/translations';
+import { GALLERY_INFO, EXHIBITIONS, ARTISTS } from '@/data/site';
+
+interface Props {
+  lang: Language;
+  rest?: string[];
+}
+
+const { lang, rest = [] } = Astro.params;
+const t = getTranslations(lang);
+
+// Simple routing based on rest path
+const path = rest.join('/');
+
+// Route to appropriate page based on path (simplified)
+const routes: Record<string, any> = {
+  '': {
+    component: import('./index.astro'),
+    title: 'Art Gate Gallery',
+  },
+  'o-nas': {
+    component: import('./about.astro'),
+    title: t.about.title,
+  },
+  'vystavy': {
+    component: import('./exhibitions.astro'),
+    title: t.exhibitions.current,
+  },
+  'umelec': {
+    component: import('./artist.astro'),
+    title: t.artists.title,
+  },
+  'navstevujeme': {
+    component: import('./visit.astro'),
+    title: t.visit.title,
+  },
+  'kontakt': {
+    component: import('./contact.astro'),
+    title: t.contact.title,
+  },
+};
+
+const route = routes[path] || routes[''];
+
+// If no route matched, render 404
+if (!route) {
+  return Astro.redirect(`/${lang}/404`);
+}
+---
+
+{(await route.component).render({ language: lang })}
