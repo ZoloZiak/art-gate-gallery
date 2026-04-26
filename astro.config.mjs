@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
-import tailwind from '@tailwindcss/vite';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -14,7 +13,6 @@ export default defineConfig({
   }),
   integrations: [],
   vite: {
-    plugins: [tailwind()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
